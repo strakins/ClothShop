@@ -8,6 +8,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Orders from './pages/Orders';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/login' element={< Login />}  />
         <Route path='/orders' element={< Orders />}  />
       </Routes>
+      <Footer />
     </div>
   )
 }
