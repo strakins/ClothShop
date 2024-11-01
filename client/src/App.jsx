@@ -9,18 +9,21 @@ import Login from './pages/Login';
 import Orders from './pages/Orders';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import SearchBar from './components/SearchBar';
+import ProductDetailsPage from './pages/ProductDetailsPage';
 
 
 const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <Navbar />
+      <SearchBar />
       <Routes>
         <Route path='/' element={< Home />} />
         <Route path='/collections' element={< Products />} />
         <Route path='/about' element={< About />} />
         <Route path='/Cart' element={< Cart />} />
-        <Route path='/product/:id' element={< ProductDetails />} />
+        <Route path='/products/:productId' element={< ProductDetailsPage />} />
         <Route path='/contact' element={< Contact />} />
         <Route path='/login' element={< Login />}  />
         <Route path='/orders' element={< Orders />}  />

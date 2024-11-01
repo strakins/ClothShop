@@ -7,7 +7,7 @@ import ProductItem from "../components/ProductItem";
 
 const ProductList = () => {
 
-  const {products} = useContext(ShopContext);
+  const {products, search, showSearch} = useContext(ShopContext);
 
   const [filterItems, setFilterItems] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
@@ -37,6 +37,9 @@ const ProductList = () => {
     // create a copy of products array
     let productsCopy = products.slice();
     
+    if(showSearch && search) {
+      productsCopy = products.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
+    }
 
     if(category.length > 0) {
       productsCopy = productsCopy.filter(item => category.includes(item.category));
@@ -70,13 +73,11 @@ const ProductList = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory]);
+  }, [category, subCategory, search, showSearch]);
 
   useEffect(() => {
     sortProducts();
   }, [sortType])
-
-  // 2:30min
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -134,7 +135,7 @@ const ProductList = () => {
         <article className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
           {
             filterItems.map((item, i) => (
-              <ProductItem key={i} id={item._id} name={item.name} image={item.image} price={item.price} />
+              <ProductItem key={i} productId={item._id} name={item.name} image={item.image} price={item.price} />
             ))
           }
         </article>
