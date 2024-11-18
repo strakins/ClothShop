@@ -9,7 +9,7 @@ import { ShopContext } from '../context/ShopContext.jsx';
 const Navbar = () => {
 
     const [showMenu, setShowMenu] = useState(false);
-    const {setShowSearch} = useContext(ShopContext);
+    const {setShowSearch, getCartCount} = useContext(ShopContext);
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -50,7 +50,7 @@ const Navbar = () => {
             </div>
             <Link to='/cart' className='relative'>
                 <img src={assets.cart_icon} className='w-4 min-w-5' alt='add to cart'/>
-                <p className='absolute right-[-5px] bottom-[-10px] rounded-md text-[10px] w-4 text-white text-center leading-4  bg-black'>5</p>
+                <p className='absolute right-[-5px] bottom-[-10px] rounded-md text-[10px] w-4 text-white text-center leading-4  bg-blue-500'>{getCartCount()}</p>
             </Link>
             
             <MdMenu onClick={() => setShowMenu(true)} className='text-2xl sm:hidden cursor-pointer' />

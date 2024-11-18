@@ -6,7 +6,7 @@ import RelatedProducts from "../components/RelatedProducts";
 
 const ProductDetailsPage = () => {
 
-  const {products, currency} = useContext(ShopContext);
+  const {products, currency, addToCart} = useContext(ShopContext);
 
   const {productId} = useParams();
   const [productData, setproductData] = useState(false);
@@ -18,7 +18,6 @@ const ProductDetailsPage = () => {
     products.map((item) => {
       if(item._id === productId) {
         setproductData(item);
-        console.log(productData)
         setImage(item.image[0])
         return null;
       }
@@ -29,6 +28,7 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     fecthproductData();
   }, [productId, products])
+
   return  productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       {/* Product Data */}
@@ -83,7 +83,7 @@ const ProductDetailsPage = () => {
               </div>
 
             </div>
-            <button className="uppercase bg-black text-white px-8 py-3 active:bg-gray-700">Add to Cart</button>
+            <button onClick={() => addToCart(productData._id, size)} className="uppercase bg-black text-white px-8 py-3 active:bg-gray-700">Add to Cart</button>
             <hr className="mt-8 sm:w-4/5" />
             
             <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
