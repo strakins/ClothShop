@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from '../context/ShopContext';
 import Title from "../components/Title";
 import { RiDeleteBin3Line } from "react-icons/ri";
+import CartItemsTotal from "../components/CartItemsTotal";
 
 const Cart = () => {
 
-  const {products, currency, cartItems} = useContext(ShopContext);
+  const {products, currency, cartItems, updateQuantity, navigate} = useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
 
@@ -46,13 +47,28 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-
-                <input className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1" type="number" min={1} defaultValue={item.quantity}/>
-                <RiDeleteBin3Line className="text-red-500 cursor-pointer text-md " />
+                {/* Logic allows user */}
+                <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))} className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1" type="number" min={1} defaultValue={item.quantity}/>
+                <RiDeleteBin3Line onClick={() => updateQuantity(item._id, item.size, 0)} className="text-red-500 cursor-pointer text-md " />
               </article>
             )
           })
         }
+      </section>
+
+      <section className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartItemsTotal />
+
+          <div className="w-full text-end">
+            <button  
+              className="uppercase bg-blue-500 text-white text-sm my-8 px-8 py-3"
+              onClick={() => navigate('/place-order')}
+            >
+                Proceed to checkout
+            </button>
+          </div>
+        </div>
       </section>
     </div>
   )
